@@ -8,11 +8,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.10" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\e-commerce_backend.Application\e-commerce_backend.Application.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Concretes\" />
   </ItemGroup>
 
 </Project>
