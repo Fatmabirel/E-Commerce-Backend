@@ -18,8 +18,4 @@
     <ProjectReference Include="..\..\Core\e-commerce_backend.Application\e-commerce_backend.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Concretes\" />
-  </ItemGroup>
-
 </Project>
