@@ -20,13 +20,18 @@ namespace e_commerce_backend.API.Controllers
         [HttpGet]
         public async Task Get()
         {
-            _productWriteRepository.AddRangeAsync(new()
-            {
-                new() {Id = Guid.NewGuid(), Name = "Product1", Price= 100, CreatedDate = DateTime.UtcNow, Stock = 10},
-                new() {Id = Guid.NewGuid(), Name = "Product2", Price= 180, CreatedDate = DateTime.UtcNow, Stock = 20},
-                new() {Id = Guid.NewGuid(), Name = "Product2", Price= 140, CreatedDate = DateTime.UtcNow, Stock = 50},
-            });
+            //_productWriteRepository.AddRangeAsync(new()
+            //{
+            //    new() {Id = Guid.NewGuid(), Name = "Product1", Price= 100, CreatedDate = DateTime.UtcNow, Stock = 10},
+            //    new() {Id = Guid.NewGuid(), Name = "Product2", Price= 180, CreatedDate = DateTime.UtcNow, Stock = 20},
+            //    new() {Id = Guid.NewGuid(), Name = "Product2", Price= 140, CreatedDate = DateTime.UtcNow, Stock = 50},
+            //});
+            //await _productWriteRepository.SaveAsync();
+
+            Product p = await _productReadRepository.GetByIdAsync("7001dda5-7d72-4bf7-bbbe-d59da1ea53fd");
+            p.Name = "Mehmet";
             await _productWriteRepository.SaveAsync();
+            
         }
 
         [HttpGet("{id}")]
