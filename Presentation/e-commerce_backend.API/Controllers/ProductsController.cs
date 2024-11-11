@@ -1,4 +1,5 @@
 ﻿using e_commerce_backend.Application.Repositories;
+using e_commerce_backend.Application.RequestParameters;
 using e_commerce_backend.Application.ViewModels.Products;
 using e_commerce_backend.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -20,15 +21,31 @@ namespace e_commerce_backend.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] Pagination pagination)
         {
-            return Ok(_productReadRepository.GetAll(false));
+            var totalCount = _productReadRepository.GetAll(false).Count();
+            var products = _productReadRepository.GetAll(false).Skip(pagination.Page * pagination.Size).Take(pagination.Size).Select(p => new
+            {
+                p.Id,
+                p.Name,
+                p.Stock,
+                p.Price,
+                p.CreatedDate,
+                p.UpdatedDate
+            }).ToList();
+
+            return Ok(new
+            {
+                totalCount,
+                products
+            });
+
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(string id)
         {
-            return Ok(_productReadRepository.GetByIdAsync(id,false));
+            return Ok(_productReadRepository.GetByIdAsync(id, false));
         }
 
         [HttpPost]
@@ -50,7 +67,7 @@ namespace e_commerce_backend.API.Controllers
             Product product = await _productReadRepository.GetByIdAsync(model.Id);
             product.Name = model.Name;
             product.Price = model.Price;
-            product.Stock = model.Stock;           
+            product.Stock = model.Stock;
             await _productWriteRepository.SaveAsync();
             return Ok();
         }
